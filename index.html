@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>AJAX II</title>
+  <link rel="stylesheet" href="./css/marvel.css">
+</head>
+
+<body>
+
+  <h1 id="title">AJAX II</h1>
+
+
+  <fieldset>
+    <form action="#" id="searchForm">
+    <legend>Opciones de búsqueda</legend>
+    <label class="searchOption"><input type="radio" name="searchOption"  value="name">Nombre</label>
+    <label class="searchOption"><input type="radio" name="searchOption" value="aligment">Alineación</label>
+    <label class="searchOption"><input type="radio" name="searchOption" value="hometown">Nacionalidad</label>
+    <label class="searchOption"><input type="radio" name="searchOption" value="gender">Género</label>
+    <label class="searchOption"><input type="radio" name="searchOption" value="fighting_skill">Hábilidades de lucha</label>
+    <input type="button" id="searchButton" value="Buscar por">
+    </form>    
+  </fieldset>
+
+  <fieldset class="optionBox" id="optionBoxName" disabled>
+    <legend>Buscar por nombre</legend>
+    <form action="#" id="nameForm">
+      <select name="nameCharacters" id="nameCharacters" ></select>
+      <input type="submit" value="Get Data" >
+    </form>
+  </fieldset>
+
+  <fieldset class="optionBox" id="optionBoxAlignment" disabled>
+    <legend>Buscar por alineación</legend>
+    <form action="#" id="alignmentForm">
+      <select name="alignmentCharacters" id="alignmentCharacters" ></select>
+      <input type="submit" value="Get Data" >
+    </form>
+  </fieldset>
+
+  <fieldset class="optionBox" id="optionBoxHomeTown" disabled>
+    <legend>Buscar por nacionalidad</legend>
+    <form action="#" id="homeTownForm">
+      <select name="homeTownCharacters" id="homeTownCharacters"></select>
+      <input type="submit" value="Get Data">
+    </form>
+  </fieldset>
+
+  <fieldset class="optionBox" id="optionBoxGender" disabled>
+    <legend>Buscar por género</legend>
+    <form action="#" id="genderForm">
+      <select name="genderCharacters" id="genderCharacters"></select>
+      <input type="submit" value="Get Data">
+    </form>
+  </fieldset>
+
+  <fieldset class="optionBox" id="optionBoxFighting" disabled>
+    <legend>Buscar por hábilidades de lucha</legend>
+    <form action="#" id="fightingForm">
+      <select name="fightingCharacters" id="fightingCharacters"></select>
+      <input type="submit" value="Get Data">
+    </form>
+  </fieldset>
+
+
+  <table id="table">
+    <thead>
+      <th>Name</th>
+      <th>Alignment</th>
+      <th>Hometown</th>
+      <th>Gender</th>
+      <th>Fighting Skills</th>
+    </thead>
+  </table>
+
+  <script src="./js/functions.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/searchName.js"></script>
+  <script src="./js/searchAlignment.js"></script>
+  <script src="./js/searchHomeTown.js"></script>
+  <script src="./js/searchGender.js"></script>
+  <script src="./js/searchFighting.js"></script>
+</body>
+
+</html>

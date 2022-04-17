@@ -1,0 +1,33 @@
+/* NO SE DEBE SELECCIONAR CON ETIQUETAS, ESTO ES PARA AGILIZAR EL VÍDEO */
+
+body{
+    background-color: darkolivegreen;
+}
+table {
+    margin-top: 2em;
+    border-collapse: collapse;
+}
+
+th, td, tr {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.optionBox{
+    display: inline;
+    width: 240px;
+}
+
+.searchOption{
+    display: inline-block;
+    width: 160px;
+    border: 1px solid black ;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.searchOption:hover{
+    background-color: rgb(102, 117, 75);
+}
+
