@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>AJAX II</title>
@@ -11,31 +12,37 @@
   <h1 id="title">AJAX II</h1>
 
 
+  <!-- --------------Opciones de búsqueda de RADIO BUTTON-------------- -->
+  
   <fieldset>
     <form action="#" id="searchForm">
-    <legend>Opciones de búsqueda</legend>
-    <label class="searchOption"><input type="radio" name="searchOption"  value="name">Nombre</label>
-    <label class="searchOption"><input type="radio" name="searchOption" value="aligment">Alineación</label>
-    <label class="searchOption"><input type="radio" name="searchOption" value="hometown">Nacionalidad</label>
-    <label class="searchOption"><input type="radio" name="searchOption" value="gender">Género</label>
-    <label class="searchOption"><input type="radio" name="searchOption" value="fighting_skill">Hábilidades de lucha</label>
-    <input type="button" id="searchButton" value="Buscar por">
-    </form>    
+      <legend>Opciones de búsqueda</legend>
+      <label class="searchOption"><input type="radio" name="searchOption" value="name">Nombre</label>
+      <label class="searchOption"><input type="radio" name="searchOption" value="aligment">Alineación</label>
+      <label class="searchOption"><input type="radio" name="searchOption" value="hometown">Nacionalidad</label>
+      <label class="searchOption"><input type="radio" name="searchOption" value="gender">Género</label>
+      <label class="searchOption"><input type="radio" name="searchOption" value="fighting_skill">Hábilidades de
+        lucha</label>
+      <input type="button" id="searchButton" value="Buscar por">
+    </form>
   </fieldset>
+
+
+  <!-- --------------Grupo de SELECTED-------------- -->
 
   <fieldset class="optionBox" id="optionBoxName" disabled>
     <legend>Buscar por nombre</legend>
     <form action="#" id="nameForm">
-      <select name="nameCharacters" id="nameCharacters" ></select>
-      <input type="submit" value="Get Data" >
+      <select name="nameCharacters" id="nameCharacters"></select>
+      <input type="submit" value="Get Data">
     </form>
   </fieldset>
 
   <fieldset class="optionBox" id="optionBoxAlignment" disabled>
     <legend>Buscar por alineación</legend>
     <form action="#" id="alignmentForm">
-      <select name="alignmentCharacters" id="alignmentCharacters" ></select>
-      <input type="submit" value="Get Data" >
+      <select name="alignmentCharacters" id="alignmentCharacters"></select>
+      <input type="submit" value="Get Data">
     </form>
   </fieldset>
 
@@ -64,6 +71,9 @@
   </fieldset>
 
 
+
+  <!-- --------------TABLA-------------- -->
+
   <table id="table">
     <thead>
       <th>Name</th>
@@ -73,6 +83,9 @@
       <th>Fighting Skills</th>
     </thead>
   </table>
+
+
+  <!-- --------------Script-------------- -->
 
   <script src="./js/functions.js"></script>
   <script src="./js/script.js"></script>
