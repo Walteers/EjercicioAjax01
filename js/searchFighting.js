@@ -1,7 +1,4 @@
-const fightingCharacters = document.getElementById('fightingCharacters');
-
-//Comentamos la declaracion de "Const table" ya que esta se encuentra declarda en "searchName.js"
-//const table = document.getElementById('table');
+//   Identificamos el formulario del SELECTED de 'Buscar por hábilidades de lucha'
 const fightingForm= document.getElementById('fightingForm');
 
 fightingForm.addEventListener('submit', (e)=>{
@@ -10,14 +7,12 @@ fightingForm.addEventListener('submit', (e)=>{
 })
 
 
+//---------------------------------------------------------------
 
 const getDataFighting = (fightingData) => {
 
-    //Instanciamos el objeto XMLHttpRequest
-    let xhr;
-    if (window.XMLHttpRequest) xhr = new XMLHttpRequest();
-    else xhr = new ActiveXObject("Microsoft.XMLHTTP");
-
+    //  Instanciamos un objeto XMLHttpRequest a traves de una función
+    const xhr= getXHR();
 
     if (fightingData == undefined) {
         //Abrimos la peticion en la primera recarga de la pagina(en este caso si los Fighting no estan cargados)
@@ -30,28 +25,9 @@ const getDataFighting = (fightingData) => {
             const dataJson = JSON.parse(data.target.response);
             //console.table(dataJson);
 
-            //Obtenemos c/u de las hábilidades de lucha sin repetir de ".Fighting_Skills"
-            const fightingAll = [];
-            for (const heroe of dataJson) {
-                //creamos un array con datos de ".Fighting_Skills"
-                fightingAll.push(heroe.Fighting_Skills);
-            }
-            //Creamos un array de datos de  ".Fighting_Skills" sin repetir y los ordenamos con .sort()
-            const fightingOnly = [... new Set(fightingAll)].sort((a,b)=> a-b);
-            //console.log(fightingOnly);
-
-            //Completamos la lista SELECT
-            const fragment = document.createDocumentFragment();
-            for (const fightingCore of fightingOnly) {
-                const listOption= document.createElement('OPTION');
-                listOption.textContent= fightingCore;
-                listOption.value= fightingCore;
-                fragment.appendChild(listOption);
-            }
-            fightingCharacters.appendChild(fragment);
-
+            //  Teniendo identificado el SELECTED 'fightingForm.fightingCharacters' le agregamos los hijos que corresponden mediante la función 'addOptionToSelect'. Esta función retorna un fragmento, que es un conjunto de OPTION para agregar a un SELECTED
+            fightingForm.fightingCharacters.appendChild(addOptionToSelect(dataJson, 'Fighting_Skills'));
         })
-
     } else {
 
         xhr.open('GET', 'marvel.php');
@@ -61,43 +37,12 @@ const getDataFighting = (fightingData) => {
 
             //Obtenemos los datos de la peticion
             const dataJson = JSON.parse(data.target.response);
-
-
-            //Enviamos los datos de Fighting a pantalla
-            const fragment = document.createDocumentFragment();
-            for (const heroe of dataJson) {
-
-                //Verifico si el dato a buscar es igual al dato en el Json
-                if (heroe.Fighting_Skills == fightingData) {
-
-                    const listRow = document.createElement('TR');
-                    const nameTD = document.createElement('TD');
-                    const alignmentTD = document.createElement('TD');
-                    const homeTownTD = document.createElement('TD');
-                    const genderTD = document.createElement('TD');
-                    const fightingTD = document.createElement('TD');
-
-                    nameTD.textContent = heroe.Name;
-                    alignmentTD.textContent = heroe.Alignment;
-                    homeTownTD.textContent = heroe.Hometown;
-                    genderTD.textContent = heroe.Gender;        
-                    fightingTD.textContent = heroe.Fighting_Skills;            
-
-                    listRow.appendChild(nameTD);
-                    listRow.appendChild(alignmentTD);
-                    listRow.appendChild(homeTownTD);
-                    listRow.appendChild(genderTD);
-                    listRow.appendChild(fightingTD);
-
-                    fragment.appendChild(listRow);
-                }
-                
-            }  
             
             // Para eliminar datos en la tabla previamente cargados
             cleanTable(table);
-            // Agregamos datos a la tabla
-            table.appendChild(fragment);
+
+            // Agregamos datos a la tabla a traves de una funcion que construye un TR con sus respectivos TD(un heroe con sus datos)
+            table.appendChild(addTRwithTD(dataJson, 'Fighting_Skills', fightingData));
 
         })
 
@@ -106,4 +51,8 @@ const getDataFighting = (fightingData) => {
     xhr.send();
 }
 
+
+//---------------------------------------------------------------
+
+//Llamamos a la funcion "getDataFighting" sin parametros, para que cuando la pagina carge por primera ves, se cargen los datos necesarios de la peticion AJAX para completar los SELECT en este caso
 getDataFighting();

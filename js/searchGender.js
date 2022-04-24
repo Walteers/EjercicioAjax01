@@ -1,23 +1,18 @@
-const genderCharacters = document.getElementById('genderCharacters');
-
-//Comentamos la declaracion de "Const table" ya que esta se encuentra declarda en "searchName.js"
-//const table = document.getElementById('table');
+//   Identificamos el formulario del SELECTED de 'Buscar por género'
 const genderForm = document.getElementById('genderForm');
 
 genderForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    getDataGender(genderCharacters.value);
+    getDataGender(genderForm.genderCharacters.value);
 })
 
 
+//---------------------------------------------------------------
 
 const getDataGender = (genderData) => {
 
-    //Instanciamos el objeto XMLHttpRequest
-    let xhr;
-    if (window.XMLHttpRequest) xhr = new XMLHttpRequest();
-    else xhr = new ActiveXObject("Microsoft.XMLHTTP");
-
+    //  Instanciamos un objeto XMLHttpRequest a traves de una función
+    const xhr= getXHR();
 
     if (genderData == undefined) {
         //Abrimos la peticion en la primera recarga de la pagina(en este caso si los Gender no estan cargados)
@@ -29,28 +24,10 @@ const getDataGender = (genderData) => {
             //Obtenemos los datos de la peticion
             const dataJson = JSON.parse(data.target.response);
             //console.table(dataJson);
-
-            //Obtenemos c/u de los Generos sin repetir de ".Genders"
-            const genero = [];
-            for (const heroe of dataJson) {
-                //creamos un array con datos "Gender"
-                genero.push(heroe.Gender);
-            }
-            const generos = [... new Set(genero)];
-            //console.log(generos);
-
-            //Completamos la lista SELECT
-            const fragment = document.createDocumentFragment();
-            for (const gender of generos) {
-                const listOption = document.createElement('OPTION');
-                listOption.textContent = gender;
-                listOption.value = gender;
-                fragment.appendChild(listOption);
-            }
-            genderCharacters.appendChild(fragment);
-
+            
+            //  Teniendo identificado el SELECTED 'genderForm.genderCharacters' le agregamos los hijos que corresponden mediante la función 'addOptionToSelect'. Esta función retorna un fragmento, que es un conjunto de OPTION para agregar a un SELECTED
+            genderForm.genderCharacters.appendChild(addOptionToSelect(dataJson, 'Gender'));
         })
-
     } else {
 
         xhr.open('GET', 'marvel.php');
@@ -60,50 +37,19 @@ const getDataGender = (genderData) => {
 
             //Obtenemos los datos de la peticion
             const dataJson = JSON.parse(data.target.response);
-
-
-            //Enviamos los generos a pantalla
-            const fragment = document.createDocumentFragment();
-            for (const heroe of dataJson) {
-
-                //Verifico si el dato a buscar es igual al dato en el Json
-                if (heroe.Gender == genderData) {
-
-                    const listRow = document.createElement('TR');
-                    const nameTD = document.createElement('TD');
-                    const alignmentTD = document.createElement('TD');
-                    const homeTownTD = document.createElement('TD');
-                    const genderTD = document.createElement('TD');
-                    const fightingTD = document.createElement('TD');
-
-                    nameTD.textContent = heroe.Name;
-                    alignmentTD.textContent = heroe.Alignment;
-                    homeTownTD.textContent = heroe.Hometown;
-                    genderTD.textContent = heroe.Gender;
-                    fightingTD.textContent = heroe.Fighting_Skills;
-
-                    listRow.appendChild(nameTD);
-                    listRow.appendChild(alignmentTD);
-                    listRow.appendChild(homeTownTD);
-                    listRow.appendChild(genderTD);
-                    listRow.appendChild(fightingTD);
-
-                    fragment.appendChild(listRow);
-                }
-
-            }
-
+            
             // Para eliminar datos en la tabla previamente cargados
             cleanTable(table);
 
-            // Agregamos datos a la tabla
-            table.appendChild(fragment);
-
+            // Agregamos datos a la tabla a traves de una funcion que construye un TR con sus respectivos TD(un heroe con sus datos)
+            table.appendChild(addTRwithTD(dataJson, 'Gender', genderData));
         })
-
     }
-
     xhr.send();
 }
 
+
+//---------------------------------------------------------------
+
+//Llamamos a la funcion "getDataGender" sin parametros, para que cuando la pagina carge por primera ves, se cargen los datos necesarios de la peticion AJAX para completar los SELECT en este caso
 getDataGender();
